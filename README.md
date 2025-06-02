@@ -1,3 +1,5 @@
+![CI](https://github.com/luisanselmobd/devcalc-api/actions/workflows/ci.yml/badge.svg)
+
 # devcalc-api
 
 ## Objetivo do Projeto
@@ -35,3 +37,8 @@ Run eko "Pipeline iniciado com sucesso"
 Error: Process completed with exit code 127.
 
 Então foi possível identificar que havia um erro no comando, possibilitando a correção.
+
+
+## Pipeline automático vs manual
+
+Ao longo do desenvolvimento dos tps, pude executar diversos pipelines em ambos os formatos. Acredito que a possibilidade de manualmente executar, definindo os valores de variáveis conforme a necessidade do momento, permite aos desenvolvedores explorarem determinados cenários que não aqueles providos automaticamente. Por sua vez, as automatizações possibilitam que os projetos tenham uma evolução muito mais ágil. Nesse sentido, acredito que são ferramentas complementares e que devem ser utilizadas de acordo com as necessidades do time de desenvolvimento.
