@@ -17,6 +17,7 @@ public class CalculatorService {
         if (b == 0) {
             throw new IllegalArgumentException("Divisor não pode ser zero");
         }
+
         return a / b;
     }
 
