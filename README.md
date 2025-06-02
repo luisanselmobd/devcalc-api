@@ -25,3 +25,13 @@ Com o repositório clonado, basta executar a partir de uma IDE ou com os seguint
 mvn clean compile
 mvn exec:java -Dexec.mainClass="com.devcalc.Main"
 ```
+
+## Correção de erro
+
+No console foi impressa a seguinte mensagem: 
+
+Run eko "Pipeline iniciado com sucesso"
+/home/runner/work/_temp/ef380f97-ff15-406c-ab0f-3ee87c1869f5.sh: line 1: eko: command not found
+Error: Process completed with exit code 127.
+
+Então foi possível identificar que havia um erro no comando, possibilitando a correção.

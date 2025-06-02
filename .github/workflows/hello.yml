@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - name: Exibir mensagem
-        run: eko "Pipeline iniciado com sucesso"
+        run: echo "Pipeline iniciado com sucesso"
