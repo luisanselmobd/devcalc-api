@@ -2,6 +2,17 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      run_tests:
+        description: 'Executar testes?'
+        required: true
+        default: 'true'
+        type: boolean
+      run_lint:
+        description: 'Executar lint?'
+        required: true
+        default: 'true'
+        type: boolean
   push:
     branches: [ main ]
   pull_request:
@@ -9,14 +20,11 @@ on:
       - 'src/**'
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Faz o checkout
-        uses: actions/checkout@v4
-
   lint_and_test:
     uses: ./.github/workflows/lint-and-test.yml
+    with:
+      run_lint: ${{ github.event.inputs.run_lint }}
+      run_tests: ${{ github.event.inputs.run_tests }}
 
   package:
     runs-on: ubuntu-latest

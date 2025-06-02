@@ -2,9 +2,17 @@ name: Lint e Teste
 
 on:
   workflow_call:
+    inputs:
+      run_lint:
+        required: true
+        type: boolean
+      run_tests:
+        required: true
+        type: boolean
 
 jobs:
   lint:
+    if: ${{ inputs.run_lint }}
     name: Verifica o estilo do código
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +32,7 @@ jobs:
         run: mvn checkstyle:checkstyle
 
   test:
+    if: ${{ inputs.run_tests }}
     name: Realiza os testes
     runs-on: ubuntu-latest
     steps:
