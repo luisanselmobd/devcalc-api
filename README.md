@@ -18,6 +18,7 @@ Abra seu terminal ou prompt de comando e execute:
 ```bash
 git clone https://github.com/luisanselmobd/devcalc-api.git
 ```
+
 Com o repositório clonado, basta executar a partir de uma IDE ou com os seguintes comandos:
 
 ```bash
