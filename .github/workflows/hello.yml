@@ -12,5 +12,4 @@ jobs:
 
     steps:
       - name: Exibir mensagem
-        !@#!@3asda: 
-          echo "Pipeline iniciado com sucesso"
+        run: eko "Pipeline iniciado com sucesso"
