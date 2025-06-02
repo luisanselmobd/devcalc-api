@@ -1,7 +1,72 @@
 package com.devcalc;
 
+import io.javalin.Javalin;
+import io.javalin.http.Context;
+
 public class Main {
+
+    private static double[] obterParametrosOuErro(Context contexto) {
+        String parametroA = contexto.queryParam("a");
+        String parametroB = contexto.queryParam("b");
+
+        if (parametroA == null && parametroB == null) {
+            contexto.status(400).result("Parâmetros 'a' e 'b' são obrigatórios.");
+            return null;
+        }
+        if (parametroA == null) {
+            contexto.status(400).result("Parâmetro 'a' é obrigatório.");
+            return null;
+        }
+        if (parametroB == null) {
+            contexto.status(400).result("Parâmetro 'b' é obrigatório.");
+            return null;
+        }
+
+        try {
+            double a = Double.parseDouble(parametroA);
+            double b = Double.parseDouble(parametroB);
+            return new double[] { a, b };
+        } catch (NumberFormatException e) {
+            contexto.status(400).result("Parâmetros 'a' e 'b' devem ser números válidos.");
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Javalin app = Javalin.create().start(7000);
+        CalculatorService calculatorService = new CalculatorService();
+
+        app.get("/", contexto -> {
+            contexto.result("Funcionando");
+        });
+
+        app.get("/add", contexto -> {
+            double[] parametros = obterParametrosOuErro(contexto);
+            if (parametros == null) return;
+            contexto.result(String.valueOf(calculatorService.add(parametros[0], parametros[1])));
+        });
+
+        app.get("/subtract", contexto -> {
+            double[] parametros = obterParametrosOuErro(contexto);
+            if (parametros == null) return;
+            contexto.result(String.valueOf(calculatorService.subtract(parametros[0], parametros[1])));
+        });
+
+        app.get("/multiply", contexto -> {
+            double[] parametros = obterParametrosOuErro(contexto);
+            if (parametros == null) return;
+            contexto.result(String.valueOf(calculatorService.multiply(parametros[0], parametros[1])));
+        });
+
+        app.get("/divide", contexto -> {
+            double[] parametros = obterParametrosOuErro(contexto);
+            if (parametros == null) return;
+            try {
+                double resultado = calculatorService.divide(parametros[0], parametros[1]);
+                contexto.result(String.valueOf(resultado));
+            } catch (IllegalArgumentException e) {
+                contexto.status(400).result(e.getMessage());
+            }
+        });
     }
 }
