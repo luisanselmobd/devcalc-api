@@ -15,10 +15,7 @@ jobs:
     if: ${{ inputs.run_lint }}
     name: Verifica o estilo do código
     runs-on: ubuntu-latest
-    steps:
-      - name: Simulando erro
-        run: exit 1
-        
+    steps:        
       - name: Faz o checkout
         uses: actions/checkout@v4
 
@@ -39,9 +36,6 @@ jobs:
     name: Realiza os testes
     runs-on: ubuntu-latest
     steps:
-      - name: Simulando erro
-        run: exit 1
-        
       - name: Faz o checkout
         uses: actions/checkout@v4
 
