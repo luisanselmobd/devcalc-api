@@ -15,41 +15,12 @@ jobs:
       - name: Faz o checkout
         uses: actions/checkout@v4
 
-  build:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
-      - name: Faz o checkout
-        uses: actions/checkout@v4
-    
-      - name: Configura o Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          
-      - name: Executa o build do projeto
-        run: mvn clean install
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Faz o checkout
-        uses: actions/checkout@v4
-    
-      - name: Configura o Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          
-      - name: Executa os testes
-        run: mvn test
+  lint_and_test:
+    uses: ./.github/workflows/lint-and-test.yml
 
   package:
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint_and_test
     steps:
       - name: Faz o checkout
         uses: actions/checkout@v4
@@ -65,7 +36,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: lint_and_test
     steps:
       - name: Deploy
         run: echo "Deploy realizado com sucesso"
