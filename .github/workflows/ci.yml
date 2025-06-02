@@ -6,12 +6,12 @@ on:
       run_tests:
         description: 'Executar testes?'
         required: true
-        default: 'true'
+        default: true
         type: boolean
       run_lint:
         description: 'Executar lint?'
         required: true
-        default: 'true'
+        default: true
         type: boolean
   push:
     branches: [ main ]
@@ -23,8 +23,8 @@ jobs:
   lint_and_test:
     uses: ./.github/workflows/lint-and-test.yml
     with:
-      run_lint: ${{ github.event.inputs.run_lint }}
-      run_tests: ${{ github.event.inputs.run_tests }}
+      run_lint: ${{ github.event.inputs.run_lint || true }}
+      run_tests: ${{ github.event.inputs.run_tests || true }}
 
   package:
     runs-on: ubuntu-latest
