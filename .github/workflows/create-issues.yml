@@ -1,0 +1,39 @@
+ 
+name: "Criação de issues"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-and-create-issue:
+    runs-on: self-hosted
+
+    env:
+      CHECK_VAR: ${{ vars.CHECK_VAR }}
+
+    steps:
+      - name: "Realiza checkout"
+        uses: actions/checkout@v4
+
+      - name: "Verifica se CHECK_VAR existe"
+        id: checa
+        shell: cmd
+        run: |
+          if not defined CHECK_VAR (
+            echo missing=true>>"%GITHUB_OUTPUT%"
+          ) else (
+            echo missing=false>>"%GITHUB_OUTPUT%"
+          )
+
+      - name: "Cria issue se CHECK_VAR ausente"
+        if: ${{ steps.checa.outputs.missing == 'true' }}
+        uses: dacbd/create-issue-action@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Variável CHECK_VAR ausente"
+          body: "O workflow detectou que a variável CHECK_VAR não está definida."
+          labels: "bug"
