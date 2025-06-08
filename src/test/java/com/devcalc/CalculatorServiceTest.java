@@ -59,4 +59,23 @@ public class CalculatorServiceTest {
         );
         assertEquals("Divisor não pode ser zero", excecao.getMessage());
     }
+
+    @Test
+    void deveCalcularRaizQuadradaCorretamente() {
+        assertEquals(4, calculatorService.sqrt(16));
+        assertEquals(5, calculatorService.sqrt(25));
+        assertEquals(0, calculatorService.sqrt(0));
+
+        assertEquals(1.414213562, calculatorService.sqrt(2), 0.000001);
+    }
+
+    @Test
+    void deveLancarExcecaoParaNumeroNegativoNaRaiz() {
+        IllegalArgumentException excecao = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculatorService.sqrt(-1)
+        );
+
+        assertEquals("Número não pode ser negativo", excecao.getMessage());
+    }
 }

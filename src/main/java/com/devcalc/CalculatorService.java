@@ -21,5 +21,10 @@ public class CalculatorService {
         return a / b;
     }
 
+    public double sqrt(double x) {
+        if(x < 0) throw new IllegalArgumentException("Número não pode ser negativo");
+        return Math.sqrt(x);
+    }
+
 
 }
