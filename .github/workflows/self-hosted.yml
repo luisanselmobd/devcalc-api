@@ -1,17 +1,16 @@
 name: Self-hosted
-
 on:
   workflow_dispatch:
-
 jobs:
   run-local:
     runs-on: self-hosted
     steps:
       - name: Exibir sistema operacional
+        shell: cmd
         run: systeminfo
-
       - name: Exibir versão do Java
+        shell: cmd
         run: java -version
-
       - name: Imprimir mensagem de sucesso
+        shell: cmd
         run: echo "Teste concluído com sucesso!"
