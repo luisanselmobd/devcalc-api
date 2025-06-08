@@ -1,0 +1,45 @@
+name: ENV CONTEXT DEMO
+
+on:
+  workflow_dispatch:
+  
+env:
+  STAGE: "test"
+  WORKFLOW_VAR: "workflow-level"
+
+jobs:
+  demo-escopos:
+    runs-on: self-hosted
+    env:
+      JOB_VAR: "job-level"
+      WORKFLOW_VAR: "sobrescrito-pelo-job"
+    
+    steps:
+      - name: Exibir contextos do GitHub
+        shell: cmd
+        run: |
+          echo "Usuario = ${{ github.actor }}"
+          echo "Sistema = ${{ runner.os }}"
+          echo "Repositório = ${{ github.repository }}"
+      
+      - name: Exibir variáveis de workflow e job
+        shell: cmd
+        run: |
+          echo "STAGE (workflow) = %STAGE%"
+          echo "JOB_VAR (job) = %JOB_VAR%"
+          echo "WORKFLOW_VAR (sobrescrito) = %WORKFLOW_VAR%"
+      
+      - name: Variáveis de step
+        shell: cmd
+        env:
+          STEP_VAR: "step-level"
+          STAGE: "sobrescrito-pelo-step"
+        run: |
+          echo "STEP_VAR (step) = %STEP_VAR%"
+          echo "STAGE (sobrescrito) = %STAGE%"
+          echo "JOB_VAR (herdado) = %JOB_VAR%"
+      
+      - name: Verificar escopo após step
+        shell: cmd
+        run: |
+          echo "STAGE voltou a %STAGE%"
