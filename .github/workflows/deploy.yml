@@ -1,0 +1,36 @@
+name: Deploy para Dev e Prod
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: self-hosted
+    environment:
+      name: dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: "Simula Deploy Dev"
+        shell: cmd
+        run: echo Deploy realizado em ambiente ${{ vars.APP_MODE }}.
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: self-hosted
+    environment:
+      name: prod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: "Simula Deploy Prod"
+        shell: cmd
+        run: echo Deploy em ${{ vars.APP_MODE }} autorizado! Usando a chave ${{ secrets.TOKEN_PROD }}
