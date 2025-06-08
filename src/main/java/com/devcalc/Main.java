@@ -32,6 +32,23 @@ public class Main {
         }
     }
 
+    private static Double obterParametroX(Context contexto) {
+        String parametroX = contexto.queryParam("x");
+
+        if (parametroX == null) {
+            contexto.status(400).result("Parâmetro 'x' é obrigatório.");
+            return null;
+        }
+
+        try {
+            return Double.parseDouble(parametroX);
+        } catch (NumberFormatException e) {
+            contexto.status(400).result("Parâmetro 'x' deve ser um número válido.");
+            return null;
+        }
+    }
+
+
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7000);
         CalculatorService calculatorService = new CalculatorService();
@@ -68,5 +85,12 @@ public class Main {
                 contexto.status(400).result(e.getMessage());
             }
         });
+
+        app.get("/sqrt", contexto -> {
+            Double parametro = obterParametroX(contexto);
+            if (parametro == null) return;
+            contexto.result(String.valueOf(calculatorService.sqrt(parametro)));
+        });
+
     }
 }
