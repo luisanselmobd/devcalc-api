@@ -42,3 +42,27 @@ Então foi possível identificar que havia um erro no comando, possibilitando a 
 ## Pipeline automático vs manual
 
 Ao longo do desenvolvimento dos tps, pude executar diversos pipelines em ambos os formatos. Acredito que a possibilidade de manualmente executar, definindo os valores de variáveis conforme a necessidade do momento, permite aos desenvolvedores explorarem determinados cenários que não aqueles providos automaticamente. Por sua vez, as automatizações possibilitam que os projetos tenham uma evolução muito mais ágil. Nesse sentido, acredito que são ferramentas complementares e que devem ser utilizadas de acordo com as necessidades do time de desenvolvimento.
+
+## TP3
+### Configuração de Runner Auto-Hospedado
+Para o runner auto hospedado, foi escolhido o Windows, por ser o sistema que utilizo em casa. O arquivo de workflow referência é o  self-hosted.yml e é composto pelas seguintes etapas:
+- Exibir o sistema operacional;
+- Exibir a versão do Java;
+- Imprimir uma mensagem de sucesso.
+
+### Uso de Variáveis e Secrets no Workflow
+O arquivo de workflow referência é o variables-and-secrets.yml e utiliza, como solicitado, as variáveis de ambiente APP_MODE, SUPPORT_EMAIL e o segredo PROD_TOKEN.
+
+### Contextos e Escopos de Variáveis de Ambiente
+O arquivo de workflow referência é o env-context-demo.yml e demonstra, através de impressões dos valores de variáveis no console, as relações de sobrescritas e escopos.
+
+### Controle de Permissões e Uso do GITHUB_TOKEN
+O arquivo de workflow referência é o create-issues.yml e, através da inspeção da presença da variavel CHECK_VAR e do action dacbd/create-issue-action@v2.0.0, cria issues no projeto alertando sobre a ausência de valor.
+
+### Ambientes de Deploy para Dev e Prod
+O arquivo de workflow referência é o deploy.yml e utiliza dos jobs deploy-dev e deploy-prod para simular situações de acordo com atualizações nas branches dev e main.
+
+### Implementação e Integração de Nova Funcionalidade na API
+Feitas as implementações acima, foi criada a nova funcionalidade e o comportamento das actions relacionadas foi de acordo com o esperado.
+
+#### Obs: As evidências de funcionamento estão na pasta evidencias/TP3.
